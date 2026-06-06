@@ -1,0 +1,11 @@
+/* app.css — overrides for the static build (no React/Tweaks runtime).
+   Loaded last so it wins over the verbatim design-system stylesheets. */
+
+/* Mobile nav is rendered in the DOM but only revealed when toggled open.
+   (The base sheets force `.nav-mobile { display: flex }` under 900px for the
+   React conditional-render model, so we override that here.) */
+.nav-mobile { display: none !important; }
+.nav-mobile.open { display: flex !important; }
+
+/* Icon helper — sizes inline <use> sprites and aligns them with text. */
+.ic { display: block; flex: none; }
