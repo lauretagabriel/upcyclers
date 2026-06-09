@@ -8,7 +8,7 @@
 /* COLLAGE — text column + asymmetric three-image collage */
 .hero-collage { padding-top: clamp(2rem, 5vw, 4rem); padding-bottom: var(--sec-y); }
 .hero-collage-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
-.hero-collage-media { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.8rem; aspect-ratio: 1/1; }
+.hero-collage-media { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.8rem; aspect-ratio: 1/1; min-height: 640px; }
 .hero-collage-img { position: relative; border-radius: var(--r); overflow: hidden; background: var(--bg-3); }
 .hero-collage-img.tall { grid-row: 1 / span 2; }
 .hero-collage-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
