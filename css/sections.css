@@ -237,6 +237,9 @@
   .comm-tiles, .mkt-tiles { grid-template-columns: 1fr; }
   .celeb-tri-grid { grid-template-columns: 1fr; }
   .celeb-banner-imgs { grid-template-columns: 1fr 1fr; }
+  /* smaller auto-scroll cards on phones — the 230px min was nearly full-screen,
+     so cards looked cut off; this shows ~2.5 cards as a flowing strip */
+  .flow-wrap.is-auto .flow-set > * { flex-basis: clamp(150px, 42vw, 200px); }
   .feed-masonry { columns: 2; }
   .feed-grid { grid-template-columns: repeat(2, 1fr); }
   .finalist-row { grid-template-columns: 1fr 1fr; display: grid; }
