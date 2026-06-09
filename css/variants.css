@@ -210,6 +210,7 @@
   .hof-mosaic .hof-card.lead { grid-column: span 2; grid-row: auto; }
   .hof-mosaic .hof-card.lead .card-img-wrap { aspect-ratio: 16/10; height: auto; }
   .feat-spot-grid { grid-template-columns: repeat(4, 1fr); }
+  .hero-collage-media { min-height: 0; }
 }
 @media (max-width: 680px) {
   .mkt-split { grid-template-columns: 1fr; }

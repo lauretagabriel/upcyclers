@@ -15,11 +15,11 @@
   const ic = (name, size) =>
     `<svg class="ic" width="${size}" height="${size}" aria-hidden="true"><use href="#i-${name}"></use></svg>`;
 
-  const handle = (user, cc, cls = "") =>
-    `<span class="handle ${cls}">@${esc(user)} <span class="dot">•</span> ${esc(cc)}</span>`;
-
   const flag = (cc) =>
     `<img class="flag" src="https://flagcdn.com/h40/${String(cc).toLowerCase()}.png" width="22" height="16" alt="${esc(cc)}" title="${esc(cc)}" loading="lazy">`;
+
+  // flag sits before the @username
+  const handle = (user, cc) => `<span class="handle">${flag(cc)}@${esc(user)}</span>`;
 
   const stat = (icon, value) => `<span class="stat">${ic(icon, 13)}${esc(value)}</span>`;
 
@@ -81,38 +81,25 @@
       <span class="hof-award">${ic("crown", 13)} ${esc(h.award)}</span>
     </a>`;
 
-  // ---- finalists podium ----
-  const renderPodium = () => {
-    const fs = DATA.finalists;
-    const first = fs[0];
-    const firstEl = document.getElementById("podium-first");
-    if (firstEl) {
-      firstEl.innerHTML = `
-        <div class="card-img-wrap">
-          <img class="card-img" src="${IMG(first.img, 900)}" alt="" loading="lazy">
-          <span class="rank-badge big">1</span>
+  // ---- finalists: one uniform card per entry, ranked 1–5 ----
+  const finalistCard = (f) => `
+    <a class="card finalist" href="#">
+      <div class="card-img-wrap">
+        <img class="card-img" src="${IMG(f.img, 500)}" alt="${esc(f.title)}" loading="lazy">
+        <span class="rank-badge">${f.rank}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${esc(f.title)}</div>
+        ${handle(f.user, f.cc)}
+        <div class="card-foot">
+          <span class="vote-pill">${ic("heart", 13)} ${esc(f.votes)} votes</span>
         </div>
-        <div class="card-body">
-          <div class="card-title lg">${esc(first.title)}</div>
-          ${handle(first.user, first.cc)}
-          <div class="card-foot">
-            <span class="vote-pill">${ic("heart", 13)} ${esc(first.votes)} votes</span>
-          </div>
-        </div>`;
-    }
-    const restEl = document.getElementById("podium-rest");
-    if (restEl) {
-      restEl.innerHTML = fs.slice(1).map((f) => `
-        <a class="podium-row" href="#">
-          <span class="rank-num">${f.rank}</span>
-          <span class="podium-thumb"><img src="${IMG(f.img, 200)}" alt="" loading="lazy"></span>
-          <span class="podium-info">
-            <span class="card-title sm">${esc(f.title)}</span>
-            ${handle(f.user, f.cc)}
-          </span>
-          <span class="vote-pill sm">${ic("heart", 12)} ${esc(f.votes)}</span>
-        </a>`).join("");
-    }
+      </div>
+    </a>`;
+
+  const renderFinalists = () => {
+    const el = document.getElementById("finalist-grid");
+    if (el) el.innerHTML = DATA.finalists.map(finalistCard).join("");
   };
 
   // ---- content feed ----
@@ -148,6 +135,13 @@
     document.querySelectorAll(".flow-wrap.is-auto .flow-track").forEach((track) => {
       const set = track.querySelector(".flow-set");
       if (!set || track.dataset.cloned) return;
+      // Marquee cards live in a max-content track that extends far past the
+      // viewport; motion comes from a CSS transform. Browsers gate loading="lazy"
+      // on an element's *layout* position (which never enters the viewport here),
+      // so deferred images would never load and cards render blank as they scroll
+      // through. Opt them into eager loading before cloning so the duplicate set
+      // inherits it. (The vertical "Most Loved" masonry keeps lazy — correct there.)
+      set.querySelectorAll('img[loading="lazy"]').forEach((img) => { img.loading = "eager"; });
       const dup = set.cloneNode(true);
       dup.setAttribute("aria-hidden", "true");
       track.appendChild(dup);
@@ -191,7 +185,7 @@
   };
 
   document.addEventListener("DOMContentLoaded", () => {
-    renderPodium();
+    renderFinalists();
     renderFeed();
     renderFeatured();
     renderHof();

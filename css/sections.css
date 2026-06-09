@@ -1,26 +1,17 @@
 /* sections.css — finalists, community, market, feed, discovery, featured, hof, footer, responsive */
 
 /* ===== FINALISTS ===== */
-.rank-badge { position: absolute; top: 0.7rem; left: 0.7rem; width: 1.9rem; height: 1.9rem; display: inline-flex; align-items: center; justify-content: center; background: var(--ink); color: #fff; font-family: var(--f-display); font-weight: 600; font-size: 1.05rem; border-radius: 999px; }
-.rank-badge.big { width: 2.8rem; height: 2.8rem; font-size: 1.6rem; }
+.rank-badge { position: absolute; top: 0.7rem; left: 0.7rem; width: 1.9rem; height: 1.9rem; display: inline-flex; align-items: center; justify-content: center; background: var(--ink); color: #fff; font-family: var(--f-display); font-weight: 600; font-size: 1.05rem; border-radius: 999px; box-shadow: 0 2px 8px rgba(20,18,12,0.25); }
+.rank-badge.big { width: 2.8rem; height: 2.8rem; font-size: 1.6rem; } /* shared with variants.css spotlight */
 .vote-pill { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.85rem; color: var(--accent); }
-.vote-pill.sm { font-size: 0.8rem; }
 
+/* Five identical cards, evenly tiled. Collapses 5 → 3 → 2 → 1 (see responsive). */
 .finalist-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap); }
-.finalist-row.strip { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.6rem; gap: var(--gap); }
-.finalist-row.strip .finalist { flex: 0 0 clamp(200px, 24vw, 280px); scroll-snap-align: start; }
 
-.podium { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.5rem, 3vw, 3rem); align-items: stretch; }
-.podium-first { display: flex; flex-direction: column; }
-.podium-first .card-img-wrap { aspect-ratio: auto; flex: 1 1 0; min-height: 200px; }
-.podium-first .card-img { position: absolute; inset: 0; }
-.podium-rest { display: flex; flex-direction: column; }
-.podium-row { display: grid; grid-template-columns: 2rem 72px 1fr auto; gap: 0.9rem; align-items: center; padding: 0.85rem 0; text-decoration: none; color: inherit; border-bottom: 1px solid var(--line); }
-.podium-row:last-child { border-bottom: none; }
-.rank-num { font-family: var(--f-display); font-size: 1.5rem; font-weight: 600; color: var(--ink-3); text-align: center; }
-.podium-thumb { width: 72px; height: 86px; border-radius: calc(var(--r) * 0.7); overflow: hidden; background: var(--bg-3); }
-.podium-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.podium-info { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.finalist.card { border-radius: calc(var(--r) + 4px); overflow: hidden; background: var(--bg); box-shadow: 0 1px 2px rgba(20,18,12,0.04), 0 10px 30px -16px rgba(20,18,12,0.22); transition: box-shadow 0.25s, transform 0.25s; }
+.finalist.card:hover { transform: translateY(-3px); box-shadow: 0 1px 2px rgba(20,18,12,0.05), 0 18px 40px -18px rgba(20,18,12,0.3); }
+.finalist .card-img-wrap { border-radius: 0; }
+.finalist .card-body { padding: 0.8rem 0.9rem 0.95rem; }
 
 /* ===== COMMUNITY ===== */
 .comm-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
@@ -226,10 +217,12 @@
   .chal-meta-boxed { grid-template-columns: 1fr 1fr; }
   .chal-side { grid-template-columns: 1fr; gap: 1.4rem; }
   .chal-side > .prize-side { padding-right: 0; padding-bottom: 1.3rem; border-right: none; border-bottom: 1px solid var(--line); }
-  .chal-tri { grid-template-columns: 1fr 1fr; gap: 1.3rem 1.6rem; }
-  .chal-tri-item.is-prize { grid-column: 1 / -1; }
+  /* keep Grand Prize / Finals / Winner as 3 columns in one row, scaled to fit */
+  .chal-tri { gap: 0.6rem; }
+  .chal-tri-item .chal-meta-k { font-size: 0.58rem; letter-spacing: 0.05em; }
+  .chal-tri-item .chal-meta-v { font-size: 0.78rem; line-height: 1.25; }
+  .chal-tri-item.is-prize .prize-num { font-size: clamp(1.5rem, 8vw, 2.1rem); }
   .comm-tiles, .mkt-tiles { grid-template-columns: 1fr; }
-  .podium { grid-template-columns: 1fr; }
   .celeb-tri-grid { grid-template-columns: 1fr; }
   .celeb-banner-imgs { grid-template-columns: 1fr 1fr; }
   .feed-masonry { columns: 2; }

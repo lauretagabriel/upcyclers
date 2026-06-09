@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="css/styles.css" />
 <link rel="stylesheet" href="css/sections.css" />
-<link rel="stylesheet" href="css/variants.css" />
+<link rel="stylesheet" href="css/variants.css?t=1" />
 <link rel="stylesheet" href="css/app.css" />
 <style>
   html { font-size: 16px; }
@@ -97,7 +97,7 @@
             </div>
             <div class="chal-tri-item">
               <span class="chal-meta-k">Finals</span>
-              <span class="chal-meta-v">Top 5 most-loved go to finals</span>
+              <span class="chal-meta-v">Top 5 most-loved <br>go to finals</span>
             </div>
             <div class="chal-tri-item">
               <span class="chal-meta-k">Winner</span>
@@ -144,7 +144,7 @@
       </div>
     </section>
 
-    <!-- ============ TOP 5 FINALISTS (podium) ============ -->
+    <!-- ============ TOP 5 FINALISTS (uniform card row) ============ -->
     <section class="sec finalists">
       <div class="wrap">
         <div class="sec-head">
@@ -155,10 +155,7 @@
           </div>
           <a class="sec-action" href="#">View all entries <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
         </div>
-        <div class="podium">
-          <a class="podium-first card" id="podium-first" href="#"></a>
-          <div class="podium-rest" id="podium-rest"></div>
-        </div>
+        <div class="finalist-row" id="finalist-grid"></div>
       </div>
     </section>
 
@@ -373,6 +370,6 @@
 
 <script src="js/logo.js"></script>
 <script src="js/data.js"></script>
-<script src="js/app.js" defer></script>
+<script src="js/app.js?t=1" defer></script>
 </body>
 </html>
