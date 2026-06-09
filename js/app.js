@@ -126,9 +126,12 @@
   const renderFeed = () => {
     const feed = buildFeed();
     const newSet = document.getElementById("feed-new");
-    if (newSet) newSet.innerHTML = feed.map((it) => feedItem(it, true)).join("");   // marquee → eager
+    // Match the Featured Upcyclers marquee (which scrolls smoothly): a small card
+    // set keeps the animated track narrow. 20 large cards made the track ~3x wider,
+    // which is what stuttered/disappeared on mobile and stuck on desktop.
+    if (newSet) newSet.innerHTML = feed.slice(0, 8).map((it) => feedItem(it, true)).join("");   // marquee → eager
     const loved = document.getElementById("feed-loved");
-    if (loved) loved.innerHTML = [...feed].reverse().map((it) => feedItem(it, false)).join("");  // masonry → lazy
+    if (loved) loved.innerHTML = [...feed].reverse().map((it) => feedItem(it, false)).join("");  // masonry → lazy (full set)
   };
 
   const renderFeatured = () => {

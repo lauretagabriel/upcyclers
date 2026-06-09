@@ -176,27 +176,15 @@
 .flow-nav.next { right: clamp(6px, 1.6vw, 22px); }
 
 /* ---- auto-scroll (styled marquee) ---- */
-/* NOTE: the edge fade uses gradient overlays (::before/::after), NOT mask-image.
-   On iOS Safari, -webkit-mask-image over an infinitely-animated, very wide
-   (composited) track makes the whole row flicker and vanish intermittently. */
-.flow-wrap.is-auto { overflow: hidden; }
-.flow-wrap.is-auto::before, .flow-wrap.is-auto::after {
-  content: ""; position: absolute; top: 0; bottom: 0; z-index: 2; pointer-events: none;
-  width: clamp(24px, 6vw, 80px);
-}
-.flow-wrap.is-auto::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
-.flow-wrap.is-auto::after { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
+.flow-wrap.is-auto { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); }
 .flow-wrap.is-auto > .flow-track {
   width: max-content; padding-inline: 0;
   animation: flow-marquee 55s linear infinite;
-  /* keep the wide animated layer stable so iOS Safari doesn't drop it */
-  will-change: transform;
-  -webkit-backface-visibility: hidden; backface-visibility: hidden;
 }
 .flow-wrap.is-auto:hover > .flow-track { animation-play-state: paused; }
 .flow-wrap.is-auto .flow-set { display: flex; gap: var(--gap); flex: 0 0 auto; padding-left: var(--gap); }
 .flow-wrap.is-auto .flow-set > * { flex: 0 0 clamp(230px, 23vw, 300px); width: auto; margin: 0; }
-@keyframes flow-marquee { to { transform: translate3d(calc(-50% - var(--gap) / 2), 0, 0); } }
+@keyframes flow-marquee { to { transform: translateX(calc(-50% - var(--gap) / 2)); } }
 @media (prefers-reduced-motion: reduce) {
   .flow-wrap.is-auto > .flow-track { animation: none; }
 }
@@ -237,9 +225,6 @@
   .comm-tiles, .mkt-tiles { grid-template-columns: 1fr; }
   .celeb-tri-grid { grid-template-columns: 1fr; }
   .celeb-banner-imgs { grid-template-columns: 1fr 1fr; }
-  /* smaller auto-scroll cards on phones — the 230px min was nearly full-screen,
-     so cards looked cut off; this shows ~2.5 cards as a flowing strip */
-  .flow-wrap.is-auto .flow-set > * { flex-basis: clamp(150px, 42vw, 200px); }
   .feed-masonry { columns: 2; }
   .feed-grid { grid-template-columns: repeat(2, 1fr); }
   .finalist-row { grid-template-columns: 1fr 1fr; display: grid; }
