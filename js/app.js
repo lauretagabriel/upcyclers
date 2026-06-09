@@ -15,8 +15,10 @@
   const ic = (name, size) =>
     `<svg class="ic" width="${size}" height="${size}" aria-hidden="true"><use href="#i-${name}"></use></svg>`;
 
+  // flags are tiny thumbnails — load eagerly so they also render inside the
+  // transformed marquee track (where loading="lazy" never fires)
   const flag = (cc) =>
-    `<img class="flag" src="https://flagcdn.com/h40/${String(cc).toLowerCase()}.png" width="22" height="16" alt="${esc(cc)}" title="${esc(cc)}" loading="lazy">`;
+    `<img class="flag" src="https://flagcdn.com/h40/${String(cc).toLowerCase()}.png" width="22" height="16" alt="${esc(cc)}" title="${esc(cc)}">`;
 
   // flag sits before the @username
   const handle = (user, cc) => `<span class="handle">${flag(cc)}@${esc(user)}</span>`;
@@ -24,10 +26,19 @@
   const stat = (icon, value) => `<span class="stat">${ic(icon, 13)}${esc(value)}</span>`;
 
   // ---- cards ----
-  const productCard = (p) => `
+  // Card image. Inside an auto-scroll marquee the cards live in a max-content
+  // track that extends far past the viewport, with motion driven by a CSS
+  // transform. Browsers gate loading="lazy" on an element's *layout* position
+  // (which the transform never changes), so lazy marquee images never load and
+  // render blank on mobile. So: marquee images load eagerly and request a
+  // smaller file; the vertical "Most Loved" masonry keeps lazy + full size.
+  const cardImg = (id, alt, marquee) =>
+    `<img class="card-img" src="${IMG(id, marquee ? 500 : 700)}" alt="${esc(alt)}"${marquee ? "" : ' loading="lazy"'}>`;
+
+  const productCard = (p, marquee) => `
     <a class="card prod" href="#">
       <div class="card-img-wrap">
-        <img class="card-img" src="${IMG(p.img)}" alt="${esc(p.title)}" loading="lazy">
+        ${cardImg(p.img, p.title, marquee)}
         ${p.cat ? `<span class="card-tag">${esc(p.cat)}</span>` : ""}
       </div>
       <div class="card-body">
@@ -40,10 +51,10 @@
       </div>
     </a>`;
 
-  const postCard = (p) => `
+  const postCard = (p, marquee) => `
     <a class="card post" href="#">
       <div class="card-img-wrap">
-        <img class="card-img" src="${IMG(p.img)}" alt="${esc(p.title)}" loading="lazy">
+        ${cardImg(p.img, p.title, marquee)}
       </div>
       <div class="card-body">
         <div class="card-title">${esc(p.title)}</div>
@@ -54,12 +65,12 @@
       </div>
     </a>`;
 
-  const feedItem = (it) => (it.kind === "product" ? productCard(it.data) : postCard(it.data));
+  const feedItem = (it, marquee) => (it.kind === "product" ? productCard(it.data, marquee) : postCard(it.data, marquee));
 
   const featCard = (c) => `
     <a class="feat-card" href="#">
       <span class="feat-card-top">
-        <span class="feat-card-img"><img src="${IMG(c.img, 400)}" alt="" loading="lazy"></span>
+        <span class="feat-card-img"><img src="${IMG(c.img, 400)}" alt=""></span>
         ${flag(c.cc)}
       </span>
       <span class="feat-card-name">${esc(c.name)}</span>
@@ -115,9 +126,9 @@
   const renderFeed = () => {
     const feed = buildFeed();
     const newSet = document.getElementById("feed-new");
-    if (newSet) newSet.innerHTML = feed.map(feedItem).join("");
+    if (newSet) newSet.innerHTML = feed.map((it) => feedItem(it, true)).join("");   // marquee → eager
     const loved = document.getElementById("feed-loved");
-    if (loved) loved.innerHTML = [...feed].reverse().map(feedItem).join("");
+    if (loved) loved.innerHTML = [...feed].reverse().map((it) => feedItem(it, false)).join("");  // masonry → lazy
   };
 
   const renderFeatured = () => {
@@ -131,17 +142,12 @@
   };
 
   // ---- auto-scroll marquee: duplicate each flow-set for a seamless loop ----
+  // (Marquee images are rendered eager at the source — see cardImg/featCard —
+  // because loading="lazy" never fires inside a transformed off-viewport track.)
   const buildMarquees = () => {
     document.querySelectorAll(".flow-wrap.is-auto .flow-track").forEach((track) => {
       const set = track.querySelector(".flow-set");
       if (!set || track.dataset.cloned) return;
-      // Marquee cards live in a max-content track that extends far past the
-      // viewport; motion comes from a CSS transform. Browsers gate loading="lazy"
-      // on an element's *layout* position (which never enters the viewport here),
-      // so deferred images would never load and cards render blank as they scroll
-      // through. Opt them into eager loading before cloning so the duplicate set
-      // inherits it. (The vertical "Most Loved" masonry keeps lazy — correct there.)
-      set.querySelectorAll('img[loading="lazy"]').forEach((img) => { img.loading = "eager"; });
       const dup = set.cloneNode(true);
       dup.setAttribute("aria-hidden", "true");
       track.appendChild(dup);
