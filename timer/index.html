@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Upcyclers — Homepage</title>
+<meta name="description" content="Upcyclers — a home for slow fashion. Enter the #ZeroWaste Challenge, shop reworked vintage and secondhand, and discover upcyclers worldwide." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/sections.css" />
+<link rel="stylesheet" href="css/variants.css?t=1" />
+<link rel="stylesheet" href="css/app.css" />
+<style>
+  html { font-size: 16px; }
+  body { margin: 0; background: #131210; }
+</style>
+</head>
+<body>
+
+<!-- icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-heart" viewBox="0 0 640 640"><path fill="currentColor" d="M320 560C320 560 64 383.4 64 231.7C64 158.2 122.6 96 197.1 96C253.2 96 289.5 129.7 320 171.9C350.5 129.7 386.8 96 442.9 96C517.5 96 576 158.2 576 231.7C576 383.4 320 560 320 560zM320 226.5L279.1 169.9C260.1 143.6 229.6 128 197.2 128C141.3 128 96.1 173.3 96.1 229.1C96.1 265.5 112 299.6 131.1 329.8C153.3 364.9 183.5 399.3 214.5 429.9C245.4 460.4 276.5 486.4 299.8 504.9C307.5 511 314.3 516.2 320 520.4C325.7 516.1 332.5 510.9 340.2 504.9C363.6 486.5 394.6 460.4 425.5 429.9C456.5 399.3 486.7 364.9 508.9 329.8C528.1 299.6 543.9 265.5 543.9 229.1C543.9 173.2 498.6 128 442.8 128C410.3 128 379.9 143.6 360.9 169.9L320 226.5z"/></symbol>
+  <symbol id="i-comment" viewBox="0 0 640 640"><path fill="currentColor" d="M152.6 443.4C150.9 447.6 140.1 474.1 120.2 522.9L206.1 493.4L217.6 489.5L228.8 494.1C256.6 505.6 287.4 512.1 320 512.1C445.7 512.1 544 417.1 544 304.1C544 191.1 445.7 96 320 96C194.3 96 96 191 96 304C96 350.6 112.5 393.8 140.7 428.7L152.6 443.4zM104.2 562.2L64 576C71.4 557.9 88.7 515.4 115.8 448.8C83.3 408.6 64 358.4 64 304C64 171.5 178.6 64 320 64C461.4 64 576 171.5 576 304C576 436.5 461.4 544 320 544C283.2 544 248.1 536.7 216.5 523.6L104.2 562.2z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3l2.6 5.6L21 9.3l-4.5 4.3 1.1 6.1L12 17l-5.6 2.7L7.5 13.6 3 9.3l6.4-.7L12 3z"/></symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 8l4 4 5-7 5 7 4-4v9H3V8z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11zM12 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-4.3-4.3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-caret" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+</svg>
+
+<div id="app" class="app theme-dark font-modern density-regular radius-crisp card-frame" style="--accent:#efe9dd;--on-accent:#141210;--wrap:1360px">
+
+  <!-- ============ NAV (center menu) ============ -->
+  <header class="nav">
+    <div class="nav-inner wrap nav-layout-center">
+      <a class="brand" href="#" aria-label="Upcyclers"><img class="brand-logo" alt="Upcyclers" /></a>
+      <nav class="nav-links">
+        <a class="nav-item" href="#">Challenges</a>
+        <div class="nav-item has-menu">
+          <a href="#">Men <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-caret"></use></svg></a>
+          <div class="nav-dropdown"><div class="nav-dropdown-card">
+            <a href="#">Clothing</a><a href="#">Bags</a><a href="#">Shoes</a><a href="#">Accessories</a>
+          </div></div>
+        </div>
+        <div class="nav-item has-menu">
+          <a href="#">Women <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-caret"></use></svg></a>
+          <div class="nav-dropdown"><div class="nav-dropdown-card">
+            <a href="#">Clothing</a><a href="#">Bags</a><a href="#">Shoes</a><a href="#">Accessories</a>
+          </div></div>
+        </div>
+        <a class="nav-item" href="#">Secondhand</a>
+        <a class="nav-item" href="#">Miscellany</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" aria-label="Search"><svg class="ic" width="19" height="19" aria-hidden="true"><use href="#i-search"></use></svg></button>
+        <button class="icon-btn theme-btn" aria-label="Switch to light mode"><svg class="ic" width="19" height="19" aria-hidden="true"><use href="#i-sun"></use></svg></button>
+        <a class="btn btn-ghost login-btn" href="#">Login</a>
+        <a class="btn btn-solid signup-btn" href="#">Sign Up</a>
+        <button class="icon-btn menu-btn" aria-label="Menu"><svg class="ic" width="22" height="22" aria-hidden="true"><use href="#i-menu"></use></svg></button>
+      </div>
+    </div>
+    <div class="nav-mobile">
+      <a href="#">Challenges</a>
+      <a href="#">Men</a>
+      <a href="#">Women</a>
+      <a href="#">Secondhand</a>
+      <a href="#">Miscellany</a>
+      <a href="#" class="btn btn-ghost">Login</a>
+      <a href="#" class="btn btn-solid">Sign Up</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO (collage) ============ -->
+    <section class="hero hero-collage">
+      <div class="wrap hero-collage-grid">
+        <div class="hero-collage-text">
+          <div class="partners">
+            <span class="partner-x">Upcyclers <span>×</span> Slow Fashion Movement</span>
+          </div>
+          <h1 class="chal-name lg">
+            <span class="chal-hash">#ZeroWaste</span>
+            <span class="chal-word">Challenge</span>
+          </h1>
+          <p class="hero-tagline" style="margin:30px 0px 20px">Turn something old into something bold.</p>
+          <div class="chal-block chal-tri" style="border-width:1px 0px;border-style:solid;border-color:rgb(42,38,32);margin:0px;padding:20px 0px">
+            <div class="chal-tri-item is-prize">
+              <span class="chal-meta-k">Grand Prize</span>
+              <span class="prize-num">$500</span>
+            </div>
+            <div class="chal-tri-item">
+              <span class="chal-meta-k">Finals</span>
+              <span class="chal-meta-v">Top 5 most-loved <br>go to finals</span>
+            </div>
+            <div class="chal-tri-item">
+              <span class="chal-meta-k">Winner</span>
+              <span class="chal-meta-v">Judges crown the winner June 30, 2026</span>
+            </div>
+          </div>
+          <div class="hero-cta-wrap" style="margin:40px 0px 0px">
+            <div class="hero-ctas">
+              <a class="btn btn-solid btn-lg" href="#"><svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-bolt"></use></svg> Enter Now</a>
+              <a class="btn btn-line btn-lg" href="#">See Rules</a>
+            </div>
+          </div>
+          <div class="hero-foot">Submission of entries and voting are open until <b class="hero-foot-hl">June 26.</b></div>
+        </div>
+        <div class="hero-collage-media">
+          <span class="hero-collage-img tall">
+            <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=900&q=80&auto=format&fit=crop" alt="Zero Waste Challenge" />
+            <span class="hero-badge"><svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-bolt"></use></svg> Voting open</span>
+          </span>
+          <span class="hero-collage-img"><img src="https://images.unsplash.com/photo-1495121605193-b116b5b9c5fe?w=500&q=80&auto=format&fit=crop" alt="" /></span>
+          <span class="hero-collage-img"><img src="https://images.unsplash.com/photo-1518049362265-d5b2a6467637?w=500&q=80&auto=format&fit=crop" alt="" /></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CELEBRITY DROP (editorial) ============ -->
+    <section class="celeb celeb-editorial">
+      <div class="wrap celeb-ed-grid">
+        <div class="celeb-ed-media">
+          <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=80&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="celeb-ed-text">
+          <span class="celeb-label"><svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-star"></use></svg> Celebrity Drop</span>
+          <h2 class="celeb-name">AURÉLIE KANE</h2>
+          <p class="celeb-role">Reworked by Aurélie x Upcyclers</p>
+          <p class="celeb-blurb">12 one-of-one pieces, hand-reconstructed from deadstock denim. Each numbered, each unrepeatable.</p>
+          <ul class="celeb-facts">
+            <li style="border-color:rgb(42,38,32)"><span class="celeb-fact-k">Edition</span><span class="celeb-fact-v">12 pieces · one-of-one</span></li>
+            <li style="border-color:rgb(42,38,32)"><span class="celeb-fact-k">Drops</span><span class="celeb-fact-v">Drops Fri 6PM</span></li>
+            <li style="border-color:rgb(42,38,32)"><span class="celeb-fact-k">Source</span><span class="celeb-fact-v">Deadstock denim</span></li>
+          </ul>
+          <a class="btn btn-solid btn-lg" href="#">Shop the drop</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TOP 5 FINALISTS (uniform card row) ============ -->
+    <section class="sec finalists">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head-text">
+            <div class="kicker">#ZeroWasteChallenge · Voting open</div>
+            <h2 class="sec-title">Top 5 Most Loved</h2>
+            <p class="sec-sub">The five highest-voted entries advancing to the finals.</p>
+          </div>
+          <a class="sec-action" href="#">View all entries <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </div>
+        <div class="finalist-row" id="finalist-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ COMMUNITY (feature list) ============ -->
+    <section class="sec community">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head-text">
+            <div class="kicker">Inspire · Learn · Create</div>
+            <h2 class="sec-title">Community</h2>
+            <p class="sec-sub">Discover upcyclers worldwide and the techniques behind the work.</p>
+          </div>
+        </div>
+        <div class="comm-feature">
+          <a class="comm-feature-media" href="#">
+            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=900&q=80&auto=format&fit=crop" alt="" loading="lazy" />
+            <div class="comm-tile-scrim"></div>
+            <div class="comm-tile-body">
+              <h3>Learn Techniques</h3>
+              <p>Patchwork · Sashiko · Dyeing · Crochet</p>
+            </div>
+          </a>
+          <div class="comm-feature-side">
+            <h3 class="comm-h">Explore Upcyclers</h3>
+            <ul class="comm-list">
+              <li><a href="#">Browse by Country <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+              <li><a href="#">Browse by Vibe <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+              <li><a href="#">Browse by Moment <svg class="ic" width="14" height="14" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+            </ul>
+            <div class="chips">
+              <a class="chip" href="#">Patchwork</a>
+              <a class="chip" href="#">Sashiko</a>
+              <a class="chip" href="#">Embellishment</a>
+              <a class="chip" href="#">Appliqué</a>
+              <a class="chip" href="#">Dyeing</a>
+              <a class="chip" href="#">Painting</a>
+              <a class="chip" href="#">Crochet</a>
+              <a class="chip" href="#">Reconstruction</a>
+              <a class="chip chip-all" href="#">Browse all techniques <svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MARKETPLACE (two tiles) ============ -->
+    <section class="sec market">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head-text">
+            <div class="kicker">Shop · Source · Sell</div>
+            <h2 class="sec-title">Marketplace</h2>
+            <p class="sec-sub">Where reworked one-of-ones and raw materials change hands.</p>
+          </div>
+        </div>
+        <div class="mkt-tiles">
+          <a class="mkt-tile" href="#">
+            <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=1000&q=80&auto=format&fit=crop" alt="" loading="lazy" />
+            <div class="mkt-tile-scrim"></div>
+            <div class="mkt-tile-body">
+              <span class="mkt-eyebrow light">Premium</span>
+              <h3>Upcycled / Reworked Vintage</h3>
+              <p>One-of-one pieces, reworked by hand.</p>
+              <span class="mkt-go">Shop now <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+            </div>
+          </a>
+          <a class="mkt-tile" href="#">
+            <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=1000&q=80&auto=format&fit=crop" alt="" loading="lazy" />
+            <div class="mkt-tile-scrim"></div>
+            <div class="mkt-tile-body">
+              <span class="mkt-eyebrow light">Raw material</span>
+              <h3>Secondhand</h3>
+              <p>Secondhand fashion · Deadstock · Remnants · Excess inventory · Discarded materials</p>
+              <span class="mkt-go">Shop now <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTENT FEED — Recently Uploaded (auto-scroll) ============ -->
+    <section class="sec feed">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head-text">
+            <div class="kicker">Fresh from the community</div>
+            <h2 class="sec-title">Recently Uploaded</h2>
+          </div>
+          <a class="sec-action" href="#">See all <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </div>
+        <div class="flow-wrap is-auto">
+          <div class="flow-track feed-grid">
+            <div class="flow-set" id="feed-new"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTENT FEED — Most Loved (masonry) ============ -->
+    <section class="sec feed">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head-text">
+            <div class="kicker">Most liked this week</div>
+            <h2 class="sec-title">Most Loved</h2>
+          </div>
+          <a class="sec-action" href="#">See all <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </div>
+        <div class="feed-masonry" id="feed-loved"></div>
+      </div>
+    </section>
+
+    <!-- ============ DISCOVERY (centered) ============ -->
+    <section class="sec discovery">
+      <div class="wrap">
+        <div class="sec-head center">
+          <div class="sec-head-text">
+            <div class="kicker">Find your lane</div>
+            <h2 class="sec-title">Discover by Vibe &amp; Moment</h2>
+            <p class="sec-sub">A curated way in — every lane surfaces both pieces for sale and showcase posts.</p>
+          </div>
+        </div>
+        <div class="disc-cols center">
+          <div class="disc-col">
+            <h3 class="disc-h">Vibes</h3>
+            <ul class="disc-list">
+              <li><a href="#">Avant Garde</a></li>
+              <li><a href="#">Minimalist</a></li>
+              <li><a href="#">Y2K Revival</a></li>
+              <li><a href="#">Boho</a></li>
+            </ul>
+            <a class="text-link disc-all" href="#">View all vibes <svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+          </div>
+          <div class="disc-col">
+            <h3 class="disc-h">Moments</h3>
+            <ul class="disc-list">
+              <li><a href="#">Travel</a></li>
+              <li><a href="#">Date Night</a></li>
+              <li><a href="#">Festivals</a></li>
+              <li><a href="#">Everyday</a></li>
+            </ul>
+            <a class="text-link disc-all" href="#">View all moments <svg class="ic" width="13" height="13" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURED UPCYCLERS (image cards, auto-scroll) ============ -->
+    <section class="sec featured">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head-text">
+            <div class="kicker">Makers to follow</div>
+            <h2 class="sec-title">Featured Upcyclers</h2>
+          </div>
+          <a class="sec-action" href="#">Discover creators <svg class="ic" width="15" height="15" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </div>
+        <div class="flow-wrap is-auto">
+          <div class="flow-track feat-cards">
+            <div class="flow-set" id="featured-cards"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HALL OF FAME (plaque) ============ -->
+    <section class="sec hof">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="sec-head-text">
+            <div class="kicker">Permanent recognition</div>
+            <h2 class="sec-title">Hall of Fame</h2>
+            <p class="sec-sub">Challenge winners and notable creators, enshrined.</p>
+          </div>
+        </div>
+        <div class="hof-plaque" id="hof-rows"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="#" aria-label="Upcyclers"><img class="brand-logo" alt="Upcyclers" /></a>
+        <p>Upcycle. Resell. Repeat.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Challenge</h4>
+          <a href="#">Current challenge</a><a href="#">Past challenges</a><a href="#">Rules</a><a href="#">Hall of Fame</a>
+        </div>
+        <div class="footer-col">
+          <h4>Community</h4>
+          <a href="#">Explore</a><a href="#">Techniques</a><a href="#">Featured creators</a><a href="#">Countries</a>
+        </div>
+        <div class="footer-col">
+          <h4>Marketplace</h4>
+          <a href="#">Reworked Vintage</a><a href="#">Secondhand</a><a href="#">Deadstock</a><a href="#">Sell</a>
+        </div>
+        <div class="footer-col">
+          <h4>Upcyclers</h4>
+          <a href="#">About</a><a href="#">Sustainability</a><a href="#">Help</a><a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap footer-base">© 2026 Upcyclers · A home for slow fashion</div>
+  </footer>
+
+</div>
+
+<script src="js/logo.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js?t=1" defer></script>
+</body>
+</html>
