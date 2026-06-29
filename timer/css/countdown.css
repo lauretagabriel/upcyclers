@@ -91,7 +91,7 @@
 }
 @media (max-width: 480px) {
   /* save width on small phones: the bar speaks for itself without the lead */
-  .countbar-timer .countdown-lead { display: none; }
+  /* .countbar-timer .countdown-lead { display: none; } */
   .countdown { gap: 0.4rem; }
   .cd-num { font-size: 0.88rem; min-width: 1.6ch; }
   .cd-lab { font-size: 0.68rem; }
