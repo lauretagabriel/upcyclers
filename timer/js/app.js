@@ -185,9 +185,10 @@
   };
 
   // ---- countdown timer (header bar + hero) ----
-  // Single source of truth for the deadline. Matches the hero copy
-  // "Judges crown the winner June 30, 2026". Change this one line to retarget.
-  const COUNTDOWN_TARGET = new Date("2026-06-30T23:59:59");
+  // Rolling countdown: always begins at 30 days on page load, then ticks down.
+  // The +1s buffer makes the first frame read a clean "30 days 00:00:00".
+  const COUNTDOWN_DAYS = 30;
+  const COUNTDOWN_TARGET = new Date(Date.now() + COUNTDOWN_DAYS * 86400000 + 1000);
 
   const wireCountdown = () => {
     const wraps = document.querySelectorAll("[data-countdown]");
