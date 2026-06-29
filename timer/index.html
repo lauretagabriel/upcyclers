@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="css/sections.css" />
 <link rel="stylesheet" href="css/variants.css?t=1" />
 <link rel="stylesheet" href="css/app.css" />
+<link rel="stylesheet" href="css/countdown.css" />
 <style>
   html { font-size: 16px; }
   body { margin: 0; background: #131210; }
@@ -35,6 +36,26 @@
 </svg>
 
 <div id="app" class="app theme-dark font-modern density-regular radius-crisp card-frame" style="--accent:#efe9dd;--on-accent:#141210;--wrap:1360px">
+
+  <!-- ============ STICKY HEADER (countdown bar + nav) ============ -->
+  <div class="site-header">
+
+  <!-- countdown announcement bar -->
+  <div class="countbar" role="region" aria-label="Challenge countdown">
+    <div class="countbar-inner">
+      <a class="countbar-tag" href="#">#ZeroWasteChallenge</a>
+      <span class="countbar-sep" aria-hidden="true"></span>
+      <div class="countdown countbar-timer" role="timer" aria-live="off" data-countdown>
+        <span class="countdown-lead">Ends in</span>
+        <span class="countdown-seg cd-seg"><span class="cd-num" data-unit="days">00</span><span class="cd-lab">days</span></span>
+        <span class="countdown-seg cd-seg"><span class="cd-num" data-unit="hours">00</span><span class="cd-lab">hrs</span></span>
+        <span class="countdown-seg cd-seg"><span class="cd-num" data-unit="minutes">00</span><span class="cd-lab">min</span></span>
+        <span class="countdown-seg cd-seg"><span class="cd-num" data-unit="seconds">00</span><span class="cd-lab">sec</span></span>
+      </div>
+      <span class="countbar-sep" aria-hidden="true"></span>
+      <a class="countbar-link" href="#">View all entries</a>
+    </div>
+  </div>
 
   <!-- ============ NAV (center menu) ============ -->
   <header class="nav">
@@ -76,6 +97,8 @@
     </div>
   </header>
 
+  </div><!-- /.site-header -->
+
   <main>
 
     <!-- ============ HERO (collage) ============ -->
@@ -89,8 +112,8 @@
             <span class="chal-hash">#ZeroWaste</span>
             <span class="chal-word">Challenge</span>
           </h1>
-          <p class="hero-tagline" style="margin:30px 0px 20px">Turn something old into something bold.</p>
-          <div class="chal-block chal-tri" style="border-width:1px 0px;border-style:solid;border-color:rgb(42,38,32);margin:0px;padding:20px 0px">
+          <p class="hero-tagline" style="margin:30px 0px 20px">Join our challenge and <span class="highlight">win $500!</span> The top 5 most-loved go to finals and judges pick the winner <span class="highlight">July 31, 2026</span>.</p>
+          <!-- <div class="chal-block chal-tri" style="border-width:1px 0px;border-style:solid;border-color:rgb(42,38,32);margin:0px;padding:20px 0px">
             <div class="chal-tri-item is-prize">
               <span class="chal-meta-k">Grand Prize</span>
               <span class="prize-num">$500</span>
@@ -103,6 +126,18 @@
               <span class="chal-meta-k">Winner</span>
               <span class="chal-meta-v">Judges crown the winner June 30, 2026</span>
             </div>
+          </div> -->
+          <div class="hero-countdown" role="timer" aria-live="off" data-countdown>
+            <span class="hero-countdown-lead">Entries and voting end July 26, 2026</span>
+            <div class="hero-countdown-segs">
+              <span class="hero-cd-seg"><span class="hero-cd-num" data-unit="days">00</span><span class="hero-cd-lab">Days</span></span>
+              <span class="hero-cd-sep">:</span>
+              <span class="hero-cd-seg"><span class="hero-cd-num" data-unit="hours">00</span><span class="hero-cd-lab">Hours</span></span>
+              <span class="hero-cd-sep">:</span>
+              <span class="hero-cd-seg"><span class="hero-cd-num" data-unit="minutes">00</span><span class="hero-cd-lab">Minutes</span></span>
+              <span class="hero-cd-sep">:</span>
+              <span class="hero-cd-seg"><span class="hero-cd-num" data-unit="seconds">00</span><span class="hero-cd-lab">Seconds</span></span>
+            </div>
           </div>
           <div class="hero-cta-wrap" style="margin:40px 0px 0px">
             <div class="hero-ctas">
@@ -110,7 +145,7 @@
               <a class="btn btn-line btn-lg" href="#">See Rules</a>
             </div>
           </div>
-          <div class="hero-foot">Submission of entries and voting are open until <b class="hero-foot-hl">June 26.</b></div>
+          <!-- <div class="hero-foot">Submission of entries and voting are open until <b class="hero-foot-hl">June 26.</b></div> -->
         </div>
         <div class="hero-collage-media">
           <span class="hero-collage-img tall">

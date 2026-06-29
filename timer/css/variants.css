@@ -23,6 +23,7 @@
 .hero-cine .chal-word, .hero-cine .chal-hash { color: #fff; }
 .hero-cine .chal-hash { opacity: 0.62; }
 .hero-cine .hero-tagline { color: rgba(255,255,255,0.86); }
+.highlight { color: var(--ink) !important; font-weight: 600;}
 .hero-cine .hero-foot { color: rgba(255,255,255,0.7); }
 .hero-cine .hero-foot b { color: #fff; }
 .hero-cine .chal-block { max-width: 820px; }

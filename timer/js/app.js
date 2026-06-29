@@ -184,6 +184,51 @@
         applyTheme(root.classList.contains("theme-dark") ? "light" : "dark")));
   };
 
+  // ---- countdown timer (header bar + hero) ----
+  // Single source of truth for the deadline. Matches the hero copy
+  // "Judges crown the winner June 30, 2026". Change this one line to retarget.
+  const COUNTDOWN_TARGET = new Date("2026-06-30T23:59:59");
+
+  const wireCountdown = () => {
+    const wraps = document.querySelectorAll("[data-countdown]");
+    if (!wraps.length) return;
+
+    const UNITS = ["days", "hours", "minutes", "seconds"];
+    // cache the number nodes once; both timers share the same data-unit names
+    const nodes = {};
+    UNITS.forEach((u) => (nodes[u] = document.querySelectorAll(`[data-unit="${u}"]`)));
+    const leads = document.querySelectorAll(".countdown-lead, .hero-countdown-lead");
+    const pad = (n) => String(n).padStart(2, "0");
+
+    let timer;
+    const tick = () => {
+      let ms = COUNTDOWN_TARGET.getTime() - Date.now();
+
+      if (ms <= 0) {
+        UNITS.forEach((u) => nodes[u].forEach((n) => (n.textContent = "00")));
+        leads.forEach((l) => (l.textContent = "Challenge ended"));
+        wraps.forEach((w) => { w.classList.add("is-ended"); w.setAttribute("aria-label", "Challenge has ended"); });
+        if (timer) clearInterval(timer);
+        return;
+      }
+
+      const d = Math.floor(ms / 86400000); ms -= d * 86400000;
+      const h = Math.floor(ms / 3600000);  ms -= h * 3600000;
+      const m = Math.floor(ms / 60000);    ms -= m * 60000;
+      const s = Math.floor(ms / 1000);
+      const vals = { days: pad(d), hours: pad(h), minutes: pad(m), seconds: pad(s) };
+
+      UNITS.forEach((u) =>
+        nodes[u].forEach((n) => { if (n.textContent !== vals[u]) n.textContent = vals[u]; }));
+      // single, non-spammy a11y label per tick (aria-live is off, so SRs read on demand)
+      const label = `Challenge ends in ${d} days, ${h} hours, ${m} minutes, ${s} seconds`;
+      wraps.forEach((w) => w.setAttribute("aria-label", label));
+    };
+
+    tick();
+    timer = setInterval(tick, 1000);
+  };
+
   // ---- mobile nav ----
   const wireMobileNav = () => {
     const btn = document.querySelector(".menu-btn");
@@ -201,5 +246,6 @@
     buildMarquees();
     wireTheme();
     wireMobileNav();
+    wireCountdown();
   });
 })();
