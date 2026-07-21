@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Montserrat:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Montserrat',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  [data-om-root]{
+    --bg:#0a0a0a;--surface:#0d0d0d;--panel:rgba(255,255,255,.03);--chip:rgba(255,255,255,.06);
+    --border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.14);--divider:rgba(255,255,255,.1);
+    --fg:#ffffff;--muted:rgba(255,255,255,.72);--muted2:rgba(255,255,255,.52);--faint:rgba(255,255,255,.4);
+    --accent:#ee3124;--accent-2:#ff6a58;--accent-soft:rgba(238,49,36,.14);
+    --input-bg:#111;--btn-bg:#ffffff;--btn-fg:#0a0a0a;
+  }
+  [data-om-root][data-theme="light"]{
+    --bg:#ffffff;--surface:#ffffff;--panel:rgba(20,17,14,.03);--chip:rgba(20,17,14,.05);
+    --border:rgba(20,17,14,.1);--border-strong:rgba(20,17,14,.17);--divider:rgba(20,17,14,.12);
+    --fg:#16130f;--muted:rgba(22,19,15,.72);--muted2:rgba(22,19,15,.55);--faint:rgba(22,19,15,.45);
+    --accent:#16130f;--accent-2:#b81f12;--accent-soft:rgba(214,42,26,.1);
+    --input-bg:#ffffff;--btn-bg:#16130f;--btn-fg:#f6f3ec;--logo-filter:invert(1);
+  }
+  a{color:var(--fg);text-decoration:none}
+  a:hover{color:var(--accent)}
+  ::selection{background:var(--accent);color:#fff}
+  input::placeholder,textarea::placeholder{color:var(--faint)}
+</style>
+</helmet>
+
+<div data-om-root data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--fg);overflow-x:hidden;transition:background .3s ease,color .3s ease">
+
+  <!-- Announcement / header timer -->
+  <div style="padding:14px clamp(16px,4vw,30px);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 18px;font-size:13px;letter-spacing:.2px;background:var(--bg);border-bottom:1px solid var(--border)">
+    <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px;color:var(--muted2)">
+      <span style="font-weight:600;color:var(--muted)">#thriftflip challenge ends in</span>
+      <span style="font-weight:700;color:var(--fg)">{{ d }}</span><span>day</span>
+      <span style="font-weight:700;color:var(--fg)">{{ h }}</span><span>hrs</span>
+      <span style="font-weight:700;color:var(--fg)">{{ m }}</span><span>min</span>
+      <span style="font-weight:700;color:var(--fg)">{{ s }}</span><span>sec</span>
+    </div>
+    <a href="#" style="color:var(--fg);font-weight:700;display:inline-flex;align-items:center;gap:6px">View all entries <span style="font-size:15px">&rarr;</span></a>
+  </div>
+
+  <!-- Nav / header -->
+  <nav style="display:flex;align-items:center;justify-content:space-between;padding:18px clamp(16px,4vw,30px);max-width:1400px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:clamp(12px,3vw,20px)">
+      <div style="display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px">
+        <span style="width:26px;height:2px;background:var(--fg);display:block"></span>
+        <span style="width:26px;height:2px;background:var(--fg);display:block"></span>
+        <span style="width:18px;height:2px;background:var(--fg);display:block"></span>
+      </div>
+      <img src="assets/upcyclers-white.png" alt="Upcyclers" style="height:26px;width:auto;display:block;filter:var(--logo-filter,none)">
+    </div>
+    <div style="display:flex;align-items:center;gap:clamp(10px,2vw,14px)">
+      <button onClick="{{ toggleTheme }}" title="Toggle light / dark" style="width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:transparent;border:1px solid var(--border-strong);color:var(--fg);padding:0">
+        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+        </sc-if>
+        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.3"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"></path></svg>
+        </sc-if>
+      </button>
+      <div style="width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--fg)" title="Search">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="7"></circle><line x1="15.8" y1="15.8" x2="21" y2="21"></line></svg>
+      </div>
+      <sc-if value="{{ showSignin }}" hint-placeholder-val="{{ true }}">
+        <a href="#" style="color:var(--fg);font-weight:600;font-size:14px;padding:9px 20px;border-radius:24px;border:1px solid var(--border-strong)">Sign in</a>
+      </sc-if>
+      <a href="#" style="color:var(--btn-fg);background:var(--btn-bg);font-weight:700;font-size:14px;padding:10px 22px;border-radius:24px">Join</a>
+    </div>
+  </nav>
+
+  <!-- Product: gallery + purchase panel -->
+  <section style="max-width:1200px;margin:0 auto;padding:20px clamp(16px,4vw,30px) 40px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(26px,4vw,56px);align-items:start">
+
+      <!-- Gallery -->
+      <div>
+        <div style="position:relative;aspect-ratio:3/4;background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+          <img src="{{ mainImg }}" alt="Aberdeen Jacket" style="width:100%;height:100%;object-fit:contain;display:block">
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px">
+          <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="4">
+            <button onClick="{{ t.onClick }}" style="{{ t.style }}">
+              <img src="{{ t.url }}" alt="Aberdeen Jacket view" style="width:100%;height:100%;object-fit:cover;display:block">
+            </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- Purchase panel -->
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)">Clothing &middot; Outerwear</div>
+        <h1 style="font-family:'Bebas Neue';font-size:clamp(46px,7vw,74px);letter-spacing:.01em;line-height:.92;margin:10px 0 0">Aberdeen Jacket</h1>
+
+        <!-- Seller -->
+        <div style="display:flex;align-items:center;gap:12px;margin:22px 0 0">
+          <div style="width:46px;height:46px;border-radius:50%;background:var(--chip);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:var(--fg);flex:0 0 auto">22</div>
+          <div style="min-width:0">
+            <div style="font-weight:700;font-size:15px;line-height:1.2">22 Shades of Gray</div>
+            <div style="color:var(--muted2);font-size:13px;line-height:1.3">@22shadesofgray</div>
+          </div>
+          <a href="#" style="margin-left:auto;font-size:13px;font-weight:700;color:var(--fg);border:1px solid var(--border-strong);padding:8px 16px;border-radius:22px">Follow</a>
+        </div>
+
+        <!-- Price -->
+        <div style="margin:22px 0 0;padding:22px 0 0;border-top:1px solid var(--divider)">
+          <div style="display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 14px">
+            <div style="font-weight:800;font-size:36px;letter-spacing:-.01em">$180.55</div>
+            <div style="color:var(--muted2);font-size:13px;font-weight:600">Includes standard shipping</div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div style="display:flex;gap:12px;margin-top:22px">
+          <a href="#" style="flex:1;text-align:center;background:var(--btn-bg);color:var(--btn-fg);font-weight:800;font-size:15px;padding:16px 24px;border-radius:30px">Add to bag</a>
+          <button style="appearance:none;cursor:pointer;background:transparent;color:var(--fg);border:1px solid var(--border-strong);font-weight:700;font-size:15px;padding:0 22px;border-radius:30px;display:inline-flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif"><span style="color:var(--accent);font-size:16px">&hearts;</span> Save</button>
+        </div>
+
+        <!-- Accordion: Details / Materials / Techniques -->
+        <div style="margin-top:28px;border-bottom:1px solid var(--border)">
+          <!-- Details -->
+          <div style="border-top:1px solid var(--border)">
+            <button onClick="{{ onDetails }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;appearance:none;border:none;background:transparent;cursor:pointer;text-align:left;color:var(--fg);font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px;letter-spacing:.02em;padding:18px 2px"><span>Details</span><span style="font-family:'Bebas Neue';font-size:24px;color:var(--muted2);line-height:1">{{ signDetails }}</span></button>
+            <sc-if value="{{ openDetails }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:0 2px 22px">
+                <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted2);font-size:14px">Category</span><span style="font-weight:700;font-size:14px">Clothing</span></div>
+                <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted2);font-size:14px">Sub-category</span><span style="font-weight:700;font-size:14px">Outerwear</span></div>
+                <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted2);font-size:14px">Materials</span><span style="font-weight:700;font-size:14px">Denim</span></div>
+                <div style="display:flex;justify-content:space-between;padding:10px 0;"><span style="color:var(--muted2);font-size:14px">Size</span><span style="font-weight:700;font-size:14px">M</span></div>
+              </div>
+            </sc-if>
+          </div>
+          <!-- Materials -->
+          <div style="border-top:1px solid var(--border)">
+            <button onClick="{{ onMaterials }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;appearance:none;border:none;background:transparent;cursor:pointer;text-align:left;color:var(--fg);font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px;letter-spacing:.02em;padding:18px 2px"><span>Materials</span><span style="font-family:'Bebas Neue';font-size:24px;color:var(--muted2);line-height:1">{{ signMaterials }}</span></button>
+            <sc-if value="{{ openMaterials }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:0 2px 22px">
+                <div style="display:flex;flex-wrap:wrap;gap:9px">
+                  <span style="background:var(--chip);border:1px solid var(--border-strong);border-radius:22px;padding:9px 16px;font-size:14px;font-weight:600">Denim</span>
+                  <span style="background:var(--chip);border:1px solid var(--border-strong);border-radius:22px;padding:9px 16px;font-size:14px;font-weight:600">100% cotton</span>
+                  <span style="background:var(--chip);border:1px solid var(--border-strong);border-radius:22px;padding:9px 16px;font-size:14px;font-weight:600">Upcycled</span>
+                </div>
+                <div style="color:var(--muted);font-size:14px;line-height:1.65;margin-top:14px">Source &mdash; <span style="color:var(--fg);font-weight:600">reclaimed thrifted jeans</span>. Each panel is cut from salvaged denim, so no two jackets share exactly the same fabric.</div>
+              </div>
+            </sc-if>
+          </div>
+          <!-- Techniques -->
+          <div style="border-top:1px solid var(--border)">
+            <button onClick="{{ onTechniques }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;appearance:none;border:none;background:transparent;cursor:pointer;text-align:left;color:var(--fg);font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px;letter-spacing:.02em;padding:18px 2px"><span>Techniques</span><span style="font-family:'Bebas Neue';font-size:24px;color:var(--muted2);line-height:1">{{ signTechniques }}</span></button>
+            <sc-if value="{{ openTechniques }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:0 2px 22px;display:flex;flex-direction:column;gap:14px">
+                <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px 20px">
+                  <div style="font-weight:800;font-size:16px;letter-spacing:.02em">Patchwork <span style="color:var(--muted2);font-weight:600">&middot; Piecing</span></div>
+                  <div style="color:var(--muted);font-size:14px;line-height:1.55;margin-top:7px">Salvaged denim panels pieced together seam-by-seam for a dynamic, textured surface.</div>
+                </div>
+                <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px 20px">
+                  <div style="font-weight:800;font-size:16px;letter-spacing:.02em">Distress <span style="color:var(--muted2);font-weight:600">&middot; Fraying</span></div>
+                  <div style="color:var(--muted);font-size:14px;line-height:1.55;margin-top:7px">Edges and decorative remnants intentionally frayed to reveal the character of the original jeans.</div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Details (full width) -->
+  <section style="max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,30px)">
+
+    <!-- Story -->
+    <div style="border-top:1px solid var(--divider);padding-top:40px">
+      <div style="color:var(--muted2);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)">The Story</div>
+      <p style="font-size:clamp(16px,2.1vw,19px);line-height:1.7;color:var(--muted);margin:14px 0 0;text-wrap:pretty">Crafted from upcycled denim, the Aberdeen Jacket is a testament to resourceful design. Countless stitched seams create a dynamic texture, while a generously sized impact collar and functional flap pockets provide classic utility. Look closely to discover the unique decorative remnants from the original jeans, each telling its own story. Every jacket is unique to itself.</p>
+    </div>
+
+    <!-- Impact -->
+    <div style="margin-top:48px;border-top:1px solid var(--divider);padding-top:40px">
+      <div style="color:var(--muted2);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:16px">Impact</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px">
+        <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px 22px">
+          <div style="font-family:'Bebas Neue';font-size:56px;line-height:.9">1</div>
+          <div style="font-weight:700;font-size:14px;margin-top:8px">Garment rescued</div>
+          <div style="color:var(--muted2);font-size:12.5px;margin-top:4px">Diverted from landfill</div>
+        </div>
+        <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px 22px">
+          <div style="font-family:'Bebas Neue';font-size:56px;line-height:.9">2,000<span style="font-size:26px">L</span></div>
+          <div style="font-weight:700;font-size:14px;margin-top:8px">Water saved</div>
+          <div style="color:var(--muted2);font-size:12.5px;margin-top:4px">Est. vs. new denim</div>
+        </div>
+        <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px 22px">
+          <div style="font-family:'Bebas Neue';font-size:56px;line-height:.9">8<span style="font-size:26px">kg</span></div>
+          <div style="font-weight:700;font-size:14px;margin-top:8px">CO&#8322;e avoided</div>
+          <div style="color:var(--muted2);font-size:12.5px;margin-top:4px">Est. lifecycle</div>
+        </div>
+        <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px 22px">
+          <div style="font-family:'Bebas Neue';font-size:56px;line-height:.9">100<span style="font-size:26px">%</span></div>
+          <div style="font-weight:700;font-size:14px;margin-top:8px">Upcycled</div>
+          <div style="color:var(--muted2);font-size:12.5px;margin-top:4px">No virgin fabric</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Measurements + Shipping -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(28px,4vw,48px);margin-top:48px;border-top:1px solid var(--divider);padding-top:40px">
+      <div>
+        <div style="color:var(--muted2);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)">Measurements</div>
+        <div style="margin-top:14px">
+          <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted);font-size:14px">Labelled size</span><span style="font-weight:700;font-size:14px">M</span></div>
+          <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted);font-size:14px">Chest (flat)</span><span style="font-weight:700;font-size:14px">22 in &middot; 56 cm</span></div>
+          <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted);font-size:14px">Back length</span><span style="font-weight:700;font-size:14px">27 in &middot; 68.5 cm</span></div>
+          <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted);font-size:14px">Shoulder</span><span style="font-weight:700;font-size:14px">18 in &middot; 45.5 cm</span></div>
+          <div style="display:flex;justify-content:space-between;padding:12px 0"><span style="color:var(--muted);font-size:14px">Sleeve</span><span style="font-weight:700;font-size:14px">25 in &middot; 63.5 cm</span></div>
+        </div>
+        <div style="color:var(--faint);font-size:12.5px;line-height:1.55;margin-top:12px">Measured flat with the garment laid down. As a one-of-a-kind piece, please allow a small tolerance.</div>
+      </div>
+      <div>
+        <div style="color:var(--muted2);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)">Shipping &amp; Returns</div>
+        <div style="display:flex;flex-direction:column;gap:18px;margin-top:16px">
+          <div>
+            <div style="font-weight:800;font-size:13px;letter-spacing:.04em;color:var(--fg);margin-bottom:5px">SHIPS FROM</div>
+            <div style="color:var(--muted);font-size:14px;line-height:1.6">Portland, OR, United States</div>
+          </div>
+          <div>
+            <div style="font-weight:800;font-size:13px;letter-spacing:.04em;color:var(--fg);margin-bottom:5px">SHIPPING</div>
+            <div style="color:var(--muted);font-size:14px;line-height:1.6">Standard shipping is included in the price. Orders are dispatched within 3&ndash;5 business days with tracking.</div>
+          </div>
+          <div>
+            <div style="font-weight:800;font-size:13px;letter-spacing:.04em;color:var(--fg);margin-bottom:5px">RETURNS</div>
+            <div style="color:var(--muted);font-size:14px;line-height:1.6">14-day returns if the item arrives damaged or not as described. As a one-of-a-kind upcycled piece, please review the measurements before ordering. Buyer covers return postage.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews & Comments -->
+  <section style="max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,30px) 64px">
+    <div style="border-top:1px solid var(--divider);padding-top:44px;margin-top:52px">
+      <h2 style="font-family:'Bebas Neue';font-size:clamp(34px,6vw,52px);letter-spacing:.02em;line-height:1;margin:0">Reviews &amp; Comments</h2>
+
+      <!-- Tab bar -->
+      <div style="display:flex;gap:4px;border-bottom:1px solid var(--border-strong);margin:22px 0 32px">
+        <button onClick="{{ onReviews }}" style="{{ reviewsTabStyle }}">Reviews <span style="opacity:.6;font-weight:600">&middot; 24</span></button>
+        <button onClick="{{ onComments }}" style="{{ commentsTabStyle }}">Comments <span style="opacity:.6;font-weight:600">&middot; 3</span></button>
+      </div>
+
+      <!-- Reviews panel -->
+      <sc-if value="{{ vReviews }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <!-- Summary -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(24px,4vw,40px);align-items:center;background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:clamp(22px,3vw,30px)">
+            <div style="text-align:center">
+              <div style="font-family:'Bebas Neue';font-size:74px;line-height:.85">4.8</div>
+              <div style="color:var(--accent);font-size:20px;letter-spacing:3px;margin-top:2px">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div style="color:var(--muted2);font-size:13px;margin-top:8px">Based on 24 verified reviews</div>
+            </div>
+            <div>
+              <sc-for list="{{ dist }}" as="row" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:10px;margin:7px 0">
+                  <span style="width:30px;color:var(--muted2);font-size:13px;font-weight:600">{{ row.label }}&#9733;</span>
+                  <div style="flex:1;height:8px;background:var(--chip);border-radius:4px;overflow:hidden">
+                    <div style="{{ row.barStyle }}"></div>
+                  </div>
+                  <span style="width:26px;text-align:right;color:var(--muted2);font-size:13px">{{ row.count }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- Composer -->
+          <sc-if value="{{ showComposer }}" hint-placeholder-val="{{ true }}">
+            <div style="border:1px solid var(--border-strong);border-radius:14px;padding:20px;margin-top:26px">
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+                <div style="font-weight:700;font-size:15px">Write a review</div>
+                <div style="color:var(--muted2);font-size:22px;letter-spacing:3px">&#9734;&#9734;&#9734;&#9734;&#9734;</div>
+              </div>
+              <textarea placeholder="Share how it fits, the quality, and how shipping went&hellip;" style="width:100%;min-height:82px;background:var(--input-bg);border:1px solid var(--border-strong);border-radius:10px;color:var(--fg);padding:12px 14px;font-family:'Montserrat',sans-serif;font-size:14px;resize:vertical;margin-top:14px"></textarea>
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:12px">
+                <div style="color:var(--faint);font-size:12px">Only verified buyers can post a star rating.</div>
+                <a href="#" style="background:var(--btn-bg);color:var(--btn-fg);font-weight:700;font-size:14px;padding:11px 22px;border-radius:24px">Post review</a>
+              </div>
+            </div>
+          </sc-if>
+
+          <style>
+            .review-item:last-child {
+              border: none !important;
+            }
+          </style>
+
+          <!-- Review list -->
+          <div style="margin-top:14px">
+            <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="4">
+              <div class="review-item" style="border-bottom:1px solid var(--border);padding:24px 0;">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="{{ r.avatarStyle }}">{{ r.initials }}</div>
+                  <div style="min-width:0">
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      <span style="font-weight:700;font-size:15px">{{ r.name }}</span>
+                      <sc-if value="{{ r.verified }}" hint-placeholder-val="{{ true }}"><span style="background:var(--chip);color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:20px">&check; Verified buyer</span></sc-if>
+                    </div>
+                    <div style="color:var(--faint);font-size:12.5px;margin-top:2px">{{ r.handle }} &middot; {{ r.date }}</div>
+                  </div>
+                  <div style="margin-left:auto;color:var(--accent);font-size:15px;letter-spacing:2px;white-space:nowrap">{{ r.stars }}</div>
+                </div>
+                <p style="color:var(--muted);font-size:14.5px;line-height:1.65;margin:12px 0 0;text-wrap:pretty">{{ r.text }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- Comments panel -->
+      <sc-if value="{{ vComments }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <sc-if value="{{ showComposer }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+              <input placeholder="Ask 22 Shades of Gray a question&hellip;" style="flex:1;min-width:220px;background:var(--input-bg);border:1px solid var(--border-strong);border-radius:26px;color:var(--fg);padding:14px 18px;font-family:'Montserrat',sans-serif;font-size:14px">
+              <a href="#" style="background:var(--btn-bg);color:var(--btn-fg);font-weight:700;font-size:14px;padding:13px 26px;border-radius:26px;display:flex;align-items:center">Ask</a>
+            </div>
+            <div style="color:var(--faint);font-size:12px;margin-bottom:18px">Questions are public. Connect with the seller and other buyers.</div>
+          </sc-if>
+
+          <sc-for list="{{ comments }}" as="c" hint-placeholder-count="3">
+            <div style="border-top:1px solid var(--border);padding:22px 0">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="{{ c.avatarStyle }}">{{ c.initials }}</div>
+                <div>
+                  <div style="font-weight:700;font-size:14px">{{ c.handle }}</div>
+                  <div style="color:var(--faint);font-size:12.5px;margin-top:1px">{{ c.date }}</div>
+                </div>
+              </div>
+              <p style="color:var(--muted);font-size:14.5px;line-height:1.6;margin:12px 0 0;text-wrap:pretty">{{ c.text }}</p>
+              <sc-if value="{{ c.hasReply }}" hint-placeholder-val="{{ false }}">
+                <div style="margin:14px 0 0 clamp(16px,4vw,34px);padding:14px 16px;background:var(--panel);border-left:2px solid var(--border-strong);border-radius:0 10px 10px 0">
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                    <span style="font-weight:700;font-size:13.5px">{{ c.reply.name }}</span>
+                    <span style="background:var(--chip);color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:20px">Seller</span>
+                    <span style="color:var(--faint);font-size:12px">{{ c.reply.date }}</span>
+                  </div>
+                  <p style="color:var(--muted);font-size:14px;line-height:1.6;margin:8px 0 0;text-wrap:pretty">{{ c.reply.text }}</p>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- Footer (full-width divider, content aligned to header) -->
+  <footer style="border-top:1px solid var(--border);width:100%">
+    <div style="max-width:1400px;margin:0 auto;padding:34px clamp(16px,4vw,30px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
+      <img src="assets/upcyclers-white.png" alt="Upcyclers" style="height:22px;width:auto;opacity:.85;filter:var(--logo-filter,none)">
+      <div style="color:var(--muted2);font-size:13px">&copy; 2026 Upcyclers &times; The Salvation Army Thrift Stores</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Reviews&quot;,&quot;Comments&quot;],&quot;default&quot;:&quot;Reviews&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Reviews &amp; Comments&quot;},&quot;showComposer&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Reviews &amp; Comments&quot;}}">
+class Component extends DCLogic {
+  imgs = [
+    'https://d2xdrn54fpd34m.cloudfront.net/user_2zHZZcYfotula0I7pXXau07nm7m/logos/4ae4961e-a93c-4cea-b5cd-7f42320840f3.jpeg',
+    'https://d2xdrn54fpd34m.cloudfront.net/user_2zHZZcYfotula0I7pXXau07nm7m/logos/2ca29370-52b2-4431-9c88-6c9e72c16fd5.jpeg',
+    'https://d2xdrn54fpd34m.cloudfront.net/user_2zHZZcYfotula0I7pXXau07nm7m/logos/30be9e91-9937-4f9f-9fa7-8c147082e568.jpeg',
+    'https://d2xdrn54fpd34m.cloudfront.net/user_2zHZZcYfotula0I7pXXau07nm7m/logos/c95a570d-a601-4e04-8e11-3af4ecec9294.jpeg'
+  ];
+  state = { img: 0, tab: 'reviews', isMobile: false, theme: 'dark', acc: { details: true, materials: false, techniques: false }, d: '--', h: '--', m: '--', s: '--' };
+
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 640px)');
+    this._upd = () => this.setState({ isMobile: this.mq.matches });
+    this._upd();
+    this.mq.addEventListener('change', this._upd);
+    try { const t = localStorage.getItem('ucTheme'); if (t === 'light' || t === 'dark') this.setState({ theme: t }); } catch (e) {}
+    if (this.props.defaultTab === 'Comments') this.setState({ tab: 'comments' });
+    this.target = new Date('2026-09-26T18:00:00-07:00').getTime();
+    this._tick = this._tick.bind(this);
+    this._tick();
+    this.timer = setInterval(this._tick, 1000);
+  }
+  componentDidUpdate(prev) {
+    if (prev.defaultTab !== this.props.defaultTab) {
+      this.setState({ tab: this.props.defaultTab === 'Comments' ? 'comments' : 'reviews' });
+    }
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    if (this.mq) this.mq.removeEventListener('change', this._upd);
+  }
+  _tick() {
+    let diff = this.target - Date.now();
+    if (diff < 0) diff = 0;
+    const p = n => String(n).padStart(2, '0');
+    this.setState({
+      d: String(Math.floor(diff / 86400000)),
+      h: p(Math.floor(diff / 3600000) % 24),
+      m: p(Math.floor(diff / 60000) % 60),
+      s: p(Math.floor(diff / 1000) % 60)
+    });
+  }
+  setImg(i) { this.setState({ img: i }); }
+  setTab(t) { this.setState({ tab: t }); }
+  toggleAcc(k) { this.setState(s => ({ acc: { ...s.acc, [k]: !s.acc[k] } })); }
+  toggleTheme() {
+    this.setState(s => {
+      const n = s.theme === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem('ucTheme', n); } catch (e) {}
+      return { theme: n };
+    });
+  }
+
+  renderVals() {
+    const img = this.state.img, tab = this.state.tab, acc = this.state.acc;
+    const av = () => ({
+      width: '40px', height: '40px', borderRadius: '50%', display: 'flex',
+      alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '14px', flex: '0 0 auto',
+      background: 'var(--chip)', color: 'var(--fg)'
+    });
+    const tabStyle = (on) => ({
+      appearance: 'none', border: 'none', background: 'transparent', cursor: 'pointer',
+      fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '15px', letterSpacing: '.02em',
+      padding: '14px 22px', margin: '0 0 -1px',
+      color: on ? 'var(--fg)' : 'var(--muted2)',
+      borderBottom: on ? '2px solid var(--accent)' : '2px solid transparent',
+      transition: 'all .2s ease'
+    });
+    const thumbStyle = (on) => ({
+      appearance: 'none', padding: 0, cursor: 'pointer', background: 'var(--surface)',
+      borderRadius: '10px', overflow: 'hidden', aspectRatio: '1/1',
+      border: on ? '2px solid var(--fg)' : '2px solid var(--border-strong)'
+    });
+    const dist = [
+      { label: '5', count: 19, pct: 79 },
+      { label: '4', count: 4, pct: 17 },
+      { label: '3', count: 1, pct: 4 },
+      { label: '2', count: 0, pct: 0 },
+      { label: '1', count: 0, pct: 0 }
+    ].map(r => ({ ...r, barStyle: { height: '100%', width: r.pct + '%', background: 'var(--accent)', borderRadius: '4px' } }));
+    const reviews = [
+      { initials: 'MD', name: 'Marcus D.', handle: '@marcusd', date: 'Jun 2026', rating: 5, verified: true, text: 'The craftsmanship is unreal — the patchwork sits perfectly and the collar is substantial. Fits true to size and the denim feels broken-in already.' },
+      { initials: 'PN', name: 'Priya N.', handle: '@priya.makes', date: 'Jun 2026', rating: 5, verified: true, text: 'Even better in person. You can feel the history in the denim, and the stitched seams give it real texture. Shipped fast and well packed.' },
+      { initials: 'TR', name: 'Theo R.', handle: '@theo.r', date: 'May 2026', rating: 4, verified: true, text: 'Gorgeous jacket and a genuine conversation piece. Runs slightly boxy through the body — size down if you want it fitted.' },
+      { initials: 'LC', name: 'Lin C.', handle: '@lin.studio', date: 'May 2026', rating: 5, verified: true, text: 'My favourite thing in my closet now. The frayed detailing is intentional and beautifully finished. Worth every penny.' }
+    ].map((r) => ({ ...r, stars: '\u2605'.repeat(r.rating) + '\u2606'.repeat(5 - r.rating), avatarStyle: av() }));
+    const comments = [
+      { initials: 'UT', handle: '@urban.thrift', date: '2 days ago', text: 'Is the denim rigid or does it have any stretch? Thinking of layering a hoodie underneath.', hasReply: true, reply: { name: '22 Shades of Gray', handle: '@22shadesofgray', date: '1 day ago', text: 'It\u2019s 100% cotton denim with no stretch, but the M has enough room for a midweight hoodie underneath.' } },
+      { initials: 'RR', handle: '@reworked.rae', date: '4 days ago', text: 'Are the front flap pockets functional or just decorative?', hasReply: true, reply: { name: '22 Shades of Gray', handle: '@22shadesofgray', date: '3 days ago', text: 'Both flap pockets are fully functional and deep enough for a phone.' } },
+      { initials: 'DD', handle: '@denim.dan', date: '1 week ago', text: 'This is stunning. Do you take commissions for a similar flip in a larger size?', hasReply: false, reply: { name: '', handle: '', date: '', text: '' } }
+    ].map((c) => ({ ...c, avatarStyle: av() }));
+    return {
+      d: this.state.d, h: this.state.h, m: this.state.m, s: this.state.s,
+      theme: this.state.theme, isDark: this.state.theme === 'dark', isLight: this.state.theme === 'light',
+      toggleTheme: () => this.toggleTheme(),
+      isMobile: this.state.isMobile, showSignin: !this.state.isMobile,
+      mainImg: this.imgs[img],
+      thumbs: this.imgs.map((u, i) => ({ url: u, onClick: () => this.setImg(i), style: thumbStyle(i === img) })),
+      openDetails: acc.details, openMaterials: acc.materials, openTechniques: acc.techniques,
+      signDetails: acc.details ? '\u2212' : '+', signMaterials: acc.materials ? '\u2212' : '+', signTechniques: acc.techniques ? '\u2212' : '+',
+      onDetails: () => this.toggleAcc('details'), onMaterials: () => this.toggleAcc('materials'), onTechniques: () => this.toggleAcc('techniques'),
+      vReviews: tab === 'reviews', vComments: tab === 'comments',
+      onReviews: () => this.setTab('reviews'), onComments: () => this.setTab('comments'),
+      reviewsTabStyle: tabStyle(tab === 'reviews'), commentsTabStyle: tabStyle(tab === 'comments'),
+      showComposer: this.props.showComposer ?? true,
+      dist, reviews, comments
+    };
+  }
+}
+</script>
+</body>
+</html>
